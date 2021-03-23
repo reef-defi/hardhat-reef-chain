@@ -1,12 +1,20 @@
-import { extendConfig, extendEnvironment } from "hardhat/config";
+import { extendConfig, extendEnvironment, subtask, task } from "hardhat/config";
 import { lazyObject } from "hardhat/plugins";
 import { HardhatConfig, HardhatUserConfig } from "hardhat/types";
 import path from "path";
 
+import fsExtra from "fs-extra";
+import { runScript } from "hardhat/internal/util/scripts-runner";
+
+
 import { ExampleHardhatRuntimeEnvironmentField } from "./ExampleHardhatRuntimeEnvironmentField";
+import ReefChainService from "./ReefChainService";
+import { RUN_REEF_CHAIN, RUN_REEF_SCRIPT, STOP_REEF_CHAIN } from "./task-names";
 // This import is needed to let the TypeScript compiler know that it should include your type
 // extensions in your npm package's types file.
 import "./type-extensions";
+import { HardhatError } from "hardhat/internal/core/errors";
+import { ERRORS } from "hardhat/internal/core/errors-list";
 
 extendConfig(
   (config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) => {
@@ -47,3 +55,40 @@ extendEnvironment((hre) => {
   // needed.
   hre.example = lazyObject(() => new ExampleHardhatRuntimeEnvironmentField());
 });
+
+subtask(RUN_REEF_CHAIN, "Run Reef chain")
+  .addPositionalParam("chainPath", "Path to chain")
+  .setAction(async (
+    { chainPath },
+    {}
+  ) => {
+    const reefChain = new ReefChainService(chainPath);
+    reefChain.createService();
+  });
+
+subtask(STOP_REEF_CHAIN, "Stop Reef chain")
+  .addPositionalParam("chainPath", "Path to chain")
+  .setAction(async (
+    { chainPath },
+    {}
+  ) => {
+    const reefChain = new ReefChainService(chainPath);
+    reefChain.stopService();
+  });
+
+task(RUN_REEF_SCRIPT, "Run script on Reef chain")
+  .addPositionalParam("scriptPath", "Script file path")
+  .addOptionalParam("chainPath", "Path to the chain", "/Users/frenki/Workspace/Blockchain/reef/reef-chain/")
+  .setAction( async (
+    { chainPath, scriptPath }, 
+    { run }) => {
+      if (!(await fsExtra.pathExists(scriptPath))) {
+        throw new HardhatError(ERRORS.BUILTIN_TASKS.RUN_FILE_NOT_FOUND, {
+          script: scriptPath,
+        });
+      }
+
+      run(RUN_REEF_CHAIN, chainPath);
+      await runScript(scriptPath);
+      run(STOP_REEF_CHAIN, chainPath);
+  });
