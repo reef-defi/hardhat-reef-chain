@@ -69,7 +69,7 @@ subtask(STOP_REEF_CHAIN, "Stop Reef chain")
   });
 
 task(TASK_RUN, "Run script on Reef chain")
-  .addOptionalParam("chain", "Path to the chain", "/Users/frenki/Workspace/Blockchain/reef/reef-chain/")
+  .addOptionalParam("chain", "Path to the chain", "./../reef/reef-chain/")
   .setAction( async (
     { script, chain }: { script: string, chain: string }, 
     { run, hardhatArguments }) => {
