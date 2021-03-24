@@ -9,7 +9,10 @@ export default class ReefChainService {
   }
 
   public createService() {
-    ReefChainService.service = exec(`cd ${this.reefChainPath} && make eth`);
+    ReefChainService.service = exec(`cd ${this.reefChainPath} && make eth`, (err) => {
+      if (err) 
+        console.error(`exec error: ${err}`);
+    });
   }
 
   public stopService() {
