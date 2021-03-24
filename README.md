@@ -4,16 +4,31 @@ The plugin allows the user to run custom scripts, deploys, ... on the reef chain
 
 ## Installation
 
-To start using the plugin run:
-
+To start using the plugin run.
 ```
 yarn build
+```
+
+Create a link to the plugin.
+```
 yarn link
 ```
 
-In the new hardhat project link the plugin with:
+In the new hardhat project link the plugin with.
 ```
 yarn link hardhat-reef-chain
+```
+
+## Usage 
+
+Run script on Reef chain.
+```
+npx hardhat reefrun path/to/script
+```
+
+Users can optionally set the path of the Reef chain, which is used to manage the chain.
+```
+npx hardhat reefrun path/to/script --chainPath path/to/chain
 ```
 
 ## Testing
