@@ -14,12 +14,17 @@ Create a link to the plugin.
 yarn link
 ```
 
+## Usage 
+
 In the new hardhat project link the plugin with.
 ```
 yarn link hardhat-reef-chain
 ```
 
-## Usage 
+Don't forget to import the plugin in `hardhat.config.js`!
+```
+require("hardhat-reef-chain");
+```
 
 Run script on Reef chain.
 ```
