@@ -1,6 +1,6 @@
 # Hardhat Reef chain plugin
 
-Plugin allows the user to run costum scripts, deployes, ... on the reef chain.
+The plugin allows the user to run custom scripts, deploys, ... on the reef chain.
 
 ## Installation
 
@@ -11,7 +11,7 @@ yarn build
 yarn link
 ```
 
-In new hardhat project link the plugin with:
+In the new hardhat project link the plugin with:
 ```
 yarn link hardhat-reef-chain
 ```
