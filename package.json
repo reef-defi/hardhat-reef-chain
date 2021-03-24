@@ -1,8 +1,8 @@
 {
-  "name": "hardhat-ts-plugin-boilerplate",
+  "name": "hardhat-reef-chain",
   "version": "0.0.1",
-  "description": "Hardhat TypeScript plugin boilerplate",
-  "repository": "github:nomiclabs/hardhat-ts-plugin-boilerplate",
+  "description": "Hardhat Reef chain plugin",
+  "repository": "github:reef-defi/hardhat-reef-chain",
   "author": "Nomic Labs LLC",
   "license": "MIT",
   "main": "dist/src/index.js",
@@ -43,5 +43,8 @@
   },
   "peerDependencies": {
     "hardhat": "^2.0.0"
+  },
+  "dependencies": {
+    "fs-extra": "^9.1.0"
   }
 }
