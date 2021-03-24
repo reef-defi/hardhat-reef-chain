@@ -31,7 +31,7 @@ Run script on Reef chain.
 npx hardhat run path/to/script
 ```
 
-Users can optionally set the path of the Reef chain, which is used to manage the chain.
+Users can optionally set the path of the Reef chain, which is used for managing.
 ```
 npx hardhat run path/to/script --chain path/to/chain
 ```
