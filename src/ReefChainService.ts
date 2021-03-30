@@ -1,4 +1,5 @@
 import { ChildProcess, exec, spawn } from "child_process";
+import { HardhatPluginError } from "hardhat/internal/core/errors";
 
 export default class ReefChainService {
   private reefChainPath = "";
@@ -10,8 +11,9 @@ export default class ReefChainService {
 
   public createService() {
     ReefChainService.service = exec(`cd ${this.reefChainPath} && make eth`, (err) => {
-      if (err) 
-        console.error(`exec error: ${err}`);
+      if (err) {
+        throw new HardhatPluginError("Reef-chain", err.message);
+      }
     });
   }
 
